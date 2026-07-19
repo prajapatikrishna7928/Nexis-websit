@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features — Nexis Infinity</title>
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .sub-hero {
+            padding: 140px 0 60px 0;
+            text-align: center;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .back-home:hover {
+            color: #fff;
+            transform: translateX(-4px);
+        }
+        .features-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">NEXIS FEATURES</div>
+    </div>
+
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <section class="sub-hero">
+        <div class="container">
+            <a href="../index.html" class="back-home">← Back to Home</a>
+            <div class="badge">Nexis AI Core Capabilities</div>
+            <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 16px;">Advanced Features</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Explore the cutting-edge autonomous architecture and state-of-the-art privacy systems of Nexis Infinity.</p>
+        </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 100px;">
+        <div class="features-detail-grid">
+            
+            <div class="glass-card">
+                <div class="feature-icon">🧠</div>
+                <h3>0ms Latency Local Core</h3>
+                <p>Runs fully quantized large language models directly on the on-device NPU, guaranteeing rapid responses without any cloud dependence.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Privacy-First Secure Vault</h3>
+                <p>Your logs, chats, and automated triggers never leave the device. Complete data isolation with zero tracking or telemetry routing.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="feature-icon">🎙️</div>
+                <h3>Autonomous Voice Engine</h3>
+                <p>Context-aware voice processing that translates complex native spoken sentences into structured local device automation flows instantly.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

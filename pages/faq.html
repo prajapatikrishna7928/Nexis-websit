@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — Nexis Infinity</title>
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .sub-hero {
+            padding: 140px 0 40px 0;
+            text-align: center;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .back-home:hover {
+            color: #fff;
+            transform: translateX(-4px);
+        }
+        .faq-page-container {
+            max-width: 800px;
+            margin: 0 auto 100px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">NEXIS FAQ</div>
+    </div>
+
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <section class="sub-hero">
+        <div class="container">
+            <a href="../index.html" class="back-home">← Back to Home</a>
+            <div class="badge">Frequently Asked Questions</div>
+            <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 16px;">Questions & Answers</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Everything you need to know about Nexis Infinity's architecture, security framework, and device compatibility.</p>
+        </div>
+    </section>
+
+    <section class="container faq-page-container">
+        <div class="faq-list">
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does Nexis AI run completely offline?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nexis Infinity uses highly optimized, quantized small language models (like Llama-3-Small or Phi-3) that fit inside your phone's storage and execute directly using the mobile device's Neural Processing Unit (NPU).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is my personal data safe with Nexis?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, 100%. Nexis is designed with a Privacy-First core. All text processing, voice recognition, and device automation tasks occur locally inside an isolated vault on your device, ensuring zero data transmission to cloud servers.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is the Zero-Root Accessibility API?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Unlike old-school root automation scripts, Nexis interacts with your phone via standard, official Android Accessibility permissions. This allows the AI agent to perform safe navigation, system toggles, and clicks without compromising device security.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Does running local AI drain the phone's battery?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nexis is highly optimized for modern smartphone chipsets. By leveraging dedicated low-power NPUs instead of heavy CPU processing, battery consumption is minimized to a level similar to running a standard offline mobile game.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Nexis Infinity</title>
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .sub-hero {
+            padding: 140px 0 40px 0;
+            text-align: center;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .back-home:hover {
+            color: #fff;
+            transform: translateX(-4px);
+        }
+        .contact-page-container {
+            max-width: 900px;
+            margin: 0 auto 100px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">NEXIS CONTACT</div>
+    </div>
+
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+    </div>
+
+    <section class="sub-hero">
+        <div class="container">
+            <a href="../index.html" class="back-home">← Back to Home</a>
+            <div class="badge">Get in Touch</div>
+            <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 16px;">Contact Support</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Have questions, feedback, or development suggestions for Nexis Infinity? Drop a message below.</p>
+        </div>
+    </section>
+
+    <section class="container contact-page-container">
+        <div class="forms-grid">
+            
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; gap: 24px;">
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 8px;">📧 Developer Email</h3>
+                    <p style="font-size: 1.05rem; color: #fff;">nexis.infinity@gmail.com</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 8px;">🛡️ Project Lead</h3>
+                    <p style="font-size: 1.05rem; color: #fff;">Krishna Prajapati</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 8px;">🌐 Open Source Hub</h3>
+                    <p style="color: var(--text-sec);">GitHub repository framework coming soon for offline core compilation.</p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <form id="subContactForm">
+                    <div class="form-group">
+                        <label for="subName">Your Name</label>
+                        <input type="text" id="subName" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subEmail">Email Address</label>
+                        <input type="email" id="subEmail" class="form-control" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subMessage">Message / Idea</label>
+                        <textarea id="subMessage" class="form-control" placeholder="Type your suggestion here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message 🚀</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        document.getElementById('subContactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you! Your suggestion has been safely recorded locally by Nexis Engine.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

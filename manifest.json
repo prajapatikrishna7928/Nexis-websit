@@ -1,0 +1,22 @@
+{
+  "name": "Nexis Infinity AI",
+  "short_name": "Nexis AI",
+  "description": "Next-Gen Autonomous AI & Voice Agent",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
