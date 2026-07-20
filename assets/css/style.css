@@ -777,3 +777,44 @@
             .btn { width: 100%; justify-content: center; }
             .float-card { display: none; } /* Hide floating elements on very small screens to avoid overlap */
         }
+        
+        
+        /* ========================================= */
+/* FAQ and Intelligence Hub Custom Styles    */
+/* ========================================= */
+.faq-section-container {
+    max-width: 800px;
+    margin: 0 auto 100px auto;
+}
+.nexis-dropdown {
+    width: 100%; 
+    padding: 12px; 
+    background: #0b0f19; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 8px; 
+    color: #fff; 
+    font-size: 0.95rem; 
+    cursor: pointer;
+    outline: none;
+}
+.nexis-dropdown option {
+    background: #0b0f19;
+    color: #fff;
+}
+/* FAQ Accordion Styles */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* जब active क्लास जुड़ेगी, तब उत्तर दिखेगा */
+.faq-item.active .faq-answer {
+    max-height: 200px; /* उत्तर को पूरा दिखाने के लिए जगह */
+    margin-top: 10px;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg); /* '+' का निशान घूमकर 'x' बन जाएगा */
+    transition: 0.3s;
+}

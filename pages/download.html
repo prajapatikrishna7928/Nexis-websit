@@ -27,7 +27,6 @@
             transform: translateX(-4px);
         }
         
-        /* डाउनलोड पेज के लिए स्पेशल UI एलिमेंट्स */
         .download-container {
             max-width: 600px;
             margin: 20px auto 100px auto;
@@ -59,6 +58,63 @@
             font-size: 1.1rem;
             margin-bottom: 4px;
         }
+
+        /* स्मार्ट डाउनलोड बटन के स्पेशल स्टाइल्स */
+        .smart-dl-btn {
+            position: relative;
+            overflow: hidden;
+            background: #1e293b;
+            color: #fff;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            max-width: 350px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .smart-dl-btn:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        }
+        .dl-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            z-index: 1;
+            transition: width 0.1s linear;
+        }
+        .dl-text {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* इंस्टॉल प्रॉम्प्ट बॉक्स का स्टाइल */
+        #install-prompt {
+            display: none;
+            margin-top: 25px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px dashed #10b981;
+            padding: 20px;
+            border-radius: 12px;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -86,9 +142,20 @@
             <h2 style="font-size: 2.2rem; margin-bottom: 12px;">Download Nexis Infinity</h2>
             <p style="margin-bottom: 30px; color: var(--text-sec);">Experience the power of a fully offline, privacy-first autonomous voice agent directly on your Android device.</p>
             
-            <a href="#" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 40px; width: auto; display: inline-flex;">
-                Download Production APK <span style="font-size: 1.3rem; margin-left: 6px;">↓</span>
-            </a>
+            <button id="dlButton" class="smart-dl-btn" onclick="startSmartDownload()">
+                <div class="dl-progress-bar" id="progressBar"></div>
+                <div class="dl-text" id="btnText">
+                    Download Production APK <span style="font-size: 1.3rem;">↓</span>
+                </div>
+            </button>
+
+            <div id="install-prompt">
+                <h4 style="color: #10b981; margin: 0 0 8px 0; font-size: 1.1rem;">🎉 Download Completed!</h4>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin: 0 0 15px 0;">Your file is ready. If installation doesn't start automatically, tap below to open and install the APK.</p>
+                <a id="installLink" href="#" class="btn" style="background: #10b981; color: #fff; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
+                    ⚡ Tap to Install Now
+                </a>
+            </div>
             
             <div class="meta-info">
                 <div>
@@ -108,5 +175,51 @@
     </section>
 
     <script src="../assets/js/main.js"></script>
+
+    <script>
+        function startSmartDownload() {
+            // ⚠️ यहाँ अपना GITHUB RELEASES का असली लिंक डालें ⚠️
+            const githubApkUrl = "यहाँ_अपना_GITHUB_RELEASES_का_लिंक_डालें"; 
+            
+            const btn = document.getElementById("dlButton");
+            const progressBar = document.getElementById("progressBar");
+            const btnText = document.getElementById("btnText");
+            const installPrompt = document.getElementById("install-prompt");
+            const installLink = document.getElementById("installLink");
+            
+            // बटन को दोबारा क्लिक होने से रोकना
+            btn.disabled = true;
+            btn.style.cursor = "default";
+            
+            let progress = 0;
+            
+            // हर 30 मिलीसेकंड में प्रोग्रेस बढ़ाना (टोटल 3 सेकंड का एनीमेशन)
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + "%";
+                btnText.innerHTML = `Downloading... ${progress}% ⏳`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // 100% होते ही बटन का रूप बदलना
+                    btnText.innerHTML = "✔ Download Ready!";
+                    progressBar.style.background = "#10b981"; // हरा रंग
+                    
+                    // इंस्टॉल प्रॉम्प्ट बॉक्स को दिखाना
+                    installPrompt.style.display = "block";
+                    installLink.href = githubApkUrl;
+                    
+                    // असली डाउनलोड ट्रिगर करना (ब्राउज़र अपने आप फाइल सेव कर लेगा)
+                    const a = document.createElement("a");
+                    a.href = githubApkUrl;
+                    a.download = "Nexis-Infinity.apk";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            }, 30);
+        }
+    </script>
 </body>
 </html>

@@ -217,7 +217,7 @@
         </div>
 
         <div class="stat-card">
-            <div class="stat-num gradient-text" data-target="8">0</div>
+            <div class="stat-num gradient-text" data-target="10">0</div>
             <p>Android Version Support+</p>
         </div>
 
@@ -331,20 +331,23 @@
 </section>
 
     <section id="download" class="section-padding">
-        <div class="container reveal">
-            <div class="download-box">
-                <div class="badge" style="margin-bottom: 16px;">Latest Release v2.4.0</div>
-                <h2 style="font-size: 3rem; margin-bottom: 20px;">Experience Nexis Today</h2>
-                <p style="max-width: 600px; margin: 0 auto 30px auto; font-size: 1.1rem;">Get the fully unlocked production APK directly from our secure servers. Compatible with Android 10+ devices.</p>
-                <a href="#download" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.1rem;" onclick="alert('Downloading Nexis Infinity APK v2.4.0...');">
-                    <span>⬇</span> Download Android APK (64 MB)
-                </a>
-                <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-sec);">
-                    🔒 SHA-256 Verified | Zero Telemetry | Direct Download
-                </div>
+    <div class="container reveal">
+        <div class="download-box">
+            <div class="badge" style="margin-bottom: 16px;">Latest Release v2.4.0</div>
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Experience Nexis Today</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px auto; font-size: 1.1rem;">Get the fully unlocked production APK directly from our secure servers. Compatible with Android 10+ devices.</p>
+            
+            <a href="pages/download.html" class="btn btn-primary" style="padding: 18px 40px; font-size: 1.1rem;">
+                <span>⬇</span> Download Android APK (64 MB)
+            </a>
+            
+            <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-sec);">
+                🔒 SHA-256 Verified | Zero Telemetry | Direct Download
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section id="testimonials" class="section-padding">
     <div class="container">
@@ -380,322 +383,128 @@
     </div>
 </section>
 
-    <section id="feedback" class="section-padding">
+    <section id="faq-and-feedback" class="section-padding" style="padding: 80px 0;">
     <div class="container">
-
-        <div class="section-header reveal">
-            <h2>Feedback & Feature Requests</h2>
-            <p>
-                Your feedback helps improve Nexis AI & Agent. Report bugs, suggest new features,
-                or share your experience to help shape future releases.
-            </p>
+        
+        <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
+            <div class="badge">Nexis Intelligence Hub</div>
+            <h2 class="gradient-text" style="font-size: 3rem; margin: 10px 0 16px 0;">Questions & Feedback</h2>
+            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: #9CA3AF;">Read architecture FAQs, check system frameworks, or share your valuable feedback and feature ideas below.</p>
         </div>
 
-        <div class="forms-grid">
+        <div class="faq-section-container">
+            
+            <div class="faq-list" style="margin-bottom: 60px;">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does Nexis AI run completely offline?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nexis Infinity uses highly optimized, quantized small language models (like Llama-3-Small or Phi-3) that fit inside your phone's storage and execute directly using the mobile device's Neural Processing Unit (NPU).</p>
+                    </div>
+                </div>
 
-            <!-- Feedback Form -->
-            <div class="glass-card reveal">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my personal data safe with Nexis?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, 100%. Nexis is designed with a Privacy-First core. All text processing, voice recognition, and device automation tasks occur locally inside an isolated vault on your device, ensuring zero data transmission to cloud servers.</p>
+                    </div>
+                </div>
 
-                <h3>💬 Share Your Feedback</h3>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is the Zero-Root Accessibility API?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Unlike old-school root automation scripts, Nexis interacts with your phone via standard, official Android Accessibility permissions. This allows the AI agent to perform safe navigation, system toggles, and clicks without compromising device security.</p>
+                    </div>
+                </div>
 
-                <p style="margin-bottom:24px;font-size:.9rem;">
-                    Every suggestion helps improve the Nexis experience.
-                </p>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Does running local AI drain the phone's battery?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nexis is highly optimized for modern smartphone chipsets. By leveraging dedicated low-power NPUs instead of heavy CPU processing, battery consumption is minimized to a level similar to running a standard offline mobile game.</p>
+                    </div>
+                </div>
+            </div>
 
-                <form onsubmit="handleFormSubmit(event,'Feedback')">
+            <div class="feedback-section" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 30px; border-radius: 16px; backdrop-filter: blur(16px); max-width: 600px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <span style="font-size: 2rem;">💡</span>
+                    <h3 style="color: #fff; margin: 10px 0 5px 0; font-size: 1.4rem;">Share Your Ideas & Feedback</h3>
+                    <p style="color: #9CA3AF; font-size: 0.9rem; margin: 0;">Help us make Nexis Infinity smarter and better.</p>
+                </div>
 
-                    <div class="form-group">
-                        <label>Full Name (Optional)</label>
-                        <input type="text"
-                               class="form-control"
-                               placeholder="Enter your name">
+                <form id="nexis-hub-form" onsubmit="window.handleHubSubmit(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Full Name (Optional)</label>
+                        <input type="text" placeholder="Enter your name" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
                     </div>
 
-                    <div class="form-group">
-                        <label>Email Address (Optional)</label>
-                        <input type="email"
-                               class="form-control"
-                               placeholder="Enter your email">
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Email Address (Optional)</label>
+                        <input type="email" placeholder="Enter your email" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
                     </div>
 
-                    <div class="form-group">
-                        <label>Overall Rating</label>
-                        <select class="form-control">
-
-                            <option>⭐⭐⭐⭐⭐ Excellent</option>
-
-                            <option>⭐⭐⭐⭐ Very Good</option>
-
-                            <option>⭐⭐⭐ Good</option>
-
-                            <option>⭐⭐ Fair</option>
-
-                            <option>⭐ Needs Improvement</option>
-
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">What would you like to do?</label>
+                        <select class="nexis-dropdown">
+                            <option value="feedback">✨ Give General Feedback</option>
+                            <option value="feature">🚀 Request a New Feature</option>
+                            <option value="bug">🐛 Report a Bug / Issue</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Your Feedback</label>
-
-                        <textarea
-                            class="form-control"
-                            rows="6"
-                            placeholder="Share your experience, ideas or suggestions..."
-                            required></textarea>
-
-                    </div>
-
-                    <button class="btn btn-primary"
-                            type="submit"
-                            style="width:100%;">
-
-                        Submit Feedback
-
-                    </button>
-
-                </form>
-
-            </div>
-
-            <!-- Feature Request -->
-
-            <div class="glass-card reveal" id="request">
-
-                <h3>🚀 Request a New Feature</h3>
-
-                <p style="margin-bottom:24px;font-size:.9rem;">
-                    Have an idea that could make Nexis even smarter?
-                    Tell us what you'd like to see.
-                </p>
-
-                <form onsubmit="handleFormSubmit(event,'Feature Request')">
-
-                    <div class="form-group">
-                        <label>Email Address</label>
-
-                        <input type="email"
-                               class="form-control"
-                               placeholder="Enter your email"
-                               required>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>Feature Category</label>
-
-                        <select class="form-control">
-
-                            <option>AI Feature</option>
-
-                            <option>Voice Assistant</option>
-
-                            <option>Automation</option>
-
-                            <option>UI / UX</option>
-
-                            <option>Performance</option>
-
-                            <option>Security</option>
-
-                            <option>Other</option>
-
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Overall Rating</label>
+                        <select class="nexis-dropdown">
+                            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ Very Good</option>
+                            <option value="3">⭐⭐⭐ Good</option>
+                            <option value="2">⭐⭐ Fair</option>
+                            <option value="1">⭐ Poor</option>
                         </select>
-
                     </div>
 
-                    <div class="form-group">
-
-                        <label>Feature Title</label>
-
-                        <input type="text"
-                               class="form-control"
-                               placeholder="Example: Smart Reminder Automation"
-                               required>
-
+                    <div style="margin-bottom: 20px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Your Message / Description</label>
+                        <textarea placeholder="Write your feedback or describe your feature idea here..." rows="4" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem; resize: none; line-height: 1.4;"></textarea>
                     </div>
 
-                    <div class="form-group">
-
-                        <label>Describe Your Idea</label>
-
-                        <textarea
-                            class="form-control"
-                            rows="6"
-                            placeholder="Explain how this feature should work..."
-                            required></textarea>
-
-                    </div>
-
-                    <button class="btn btn-secondary"
-                            type="submit"
-                            style="width:100%;">
-
-                        Submit Feature Request
-
-                    </button>
-
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; border-radius: 8px; border: none; cursor: pointer;">Submit Request</button>
                 </form>
+            </div>
 
+            <div id="live-reviews-box" style="margin-top: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h4 style="color: #fff; margin-bottom: 15px;">👥 User Reviews & Ratings</h4>
+                <div style="background: rgba(255,255,255,0.01); border: 1px dashed rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; color: #9CA3AF; font-size: 0.9rem; font-style: italic;">
+                    "Reviews and ideas will appear here live once database sync is enabled."
+                </div>
             </div>
 
         </div>
-
-        <p style="margin-top:30px;text-align:center;opacity:.75;font-size:.9rem;">
-
-            Feedback forms are currently in beta.
-            Until backend integration is completed,
-            you can also contact us directly at
-            <strong>nexis.infinity@gmail.com</strong>.
-
-        </p>
-
     </div>
 </section>
 
-    <section id="faq" class="section-padding">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Frequently Asked Questions</h2>
-                <p>Everything you need to know about Nexis Infinity and our autonomous technology.</p>
-            </div>
-            <div class="faq-list reveal">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How does Offline AI work without internet?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Nexis bundles highly quantized, optimized Small Language Models (SLMs) directly into the app structure. By utilizing your device's native CPU and NPU architecture via C++ bindings, it computes neural responses locally without transferring bytes over the network.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Who is the developer behind Nexis Infinity?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Nexis Infinity was founded and developed entirely by Krishna Prajapati, a full-stack software engineer and AI researcher dedicated to building privacy-first autonomous consumer software.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Is my personal data and phone automation secure?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Yes. We employ a zero-knowledge architecture. Local actions stay on device. When using OpenRouter online models, API transmissions are encrypted using TLS 1.3, and we never store your personal prompts or memory graphs on our servers.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How do I configure OpenRouter AI models?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Simply navigate to the Settings tab within the Nexis app, select 'Cloud Providers', and paste your personal OpenRouter API key. You will instantly gain access to GPT-4o, Claude 3.5 Sonnet, Gemini Pro, and Llama 3 models.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    });
+</script>
 
-    <section id="contact" class="section-padding">
-    <div class="container">
-
-        <div class="section-header reveal">
-            <h2>Contact Nexis Infinity</h2>
-            <p>
-                We'd love to hear your feedback, ideas, bug reports, and collaboration proposals.
-                Every message helps improve Nexis AI & Agent.
-            </p>
-        </div>
-
-        <div style="max-width:700px;margin:0 auto 80px;" class="glass-card reveal">
-
-            <form onsubmit="handleFormSubmit(event, 'Contact Form')">
-
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter your name"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input
-                        type="email"
-                        class="form-control"
-                        placeholder="Enter your email"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Subject</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Feedback, Bug Report, Collaboration..."
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Your Message</label>
-                    <textarea
-                        class="form-control"
-                        rows="6"
-                        placeholder="Write your message here..."
-                        required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width:100%;">
-                    Send Message
-                </button>
-
-                <p style="margin-top:20px;text-align:center;font-size:.9rem;opacity:.8;">
-                    📧 Direct Contact:
-                    <strong>nexis.infinity@gmail.com</strong>
-                </p>
-
-            </form>
-
-        </div>
-
-        <div id="newsletter" class="section-header reveal">
-
-            <div class="badge" style="margin-bottom:16px;">
-                Beta Program
-            </div>
-
-            <h3>Stay Updated with Nexis</h3>
-
-            <p style="margin-bottom:24px;">
-                Receive beta updates, new feature announcements,
-                release notes, development progress, and future AI innovations.
-            </p>
-
-            <form class="newsletter-box"
-                  onsubmit="handleFormSubmit(event, 'Newsletter')">
-
-                <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Enter your email address"
-                    required>
-
-                <button type="submit" class="btn btn-primary">
-                    Join Beta
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-</section>
 
     <footer aria-label="Site Footer">
         <div class="container">
@@ -744,6 +553,46 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script type="module" src="firebase/feedback.js"></script>
+    <script>
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    });
+
+    // अगर इंटरनेट या किसी एरर से लोड होने में टाइम लगे, तो भी 2 सेकंड बाद जबरदस्ती हटा देगा
+    setTimeout(function() {
+        const loader = document.getElementById('loader');
+        if (loader && loader.style.display !== 'none') {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+    }, 2000);
+</script>
+    <script>
+    // FAQ ओपन और क्लोज करने का पक्का कोड
+    document.addEventListener("DOMContentLoaded", function() {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(function(question) {
+            question.addEventListener('click', function() {
+                // जिस प्रश्न पर क्लिक हुआ है, उसके पूरे बॉक्स (parent) को पकड़ना
+                const parentItem = this.parentElement;
+                
+                // active क्लास को लगाना और हटाना (Toggle)
+                parentItem.classList.toggle('active');
+            });
+        });
+    });
+</script>
+
 
 </body>
 </html>

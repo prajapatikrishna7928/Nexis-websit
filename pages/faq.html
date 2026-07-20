@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ — Nexis Infinity</title>
+    <title>Feedback & Hub — Nexis Infinity</title>
     
     <link rel="stylesheet" href="../assets/css/style.css">
     
@@ -26,17 +26,13 @@
             color: #fff;
             transform: translateX(-4px);
         }
-        .faq-page-container {
-            max-width: 800px;
-            margin: 0 auto 100px auto;
-        }
     </style>
 </head>
 <body>
 
     <div id="loader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">NEXIS FAQ</div>
+        <div class="loader-text">NEXIS HUB</div>
     </div>
 
     <div class="aurora-bg">
@@ -44,70 +40,111 @@
         <div class="aurora-blob blob-3"></div>
     </div>
 
-    <section class="sub-hero">
+    <section id="feedback" class="section-padding" style="padding: 80px 0;">
         <div class="container">
-            <a href="../index.html" class="back-home">← Back to Home</a>
-            <div class="badge">Frequently Asked Questions</div>
-            <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 16px;">Questions & Answers</h1>
-            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Everything you need to know about Nexis Infinity's architecture, security framework, and device compatibility.</p>
+            <div class="section-header reveal" style="text-align: center; margin-bottom: 40px;">
+                <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 10px;">Nexis Intelligence Hub</h2>
+                <p style="max-width: 600px; margin: 0 auto; color: #9CA3AF;">Share your valuable experience, rate our performance, or suggest new autonomous features in one place.</p>
+            </div>
+
+            <div class="feedback-section" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 35px; border-radius: 16px; backdrop-filter: blur(16px); max-width: 650px; margin: 0 auto;">
+                <form id="nexis-hub-form" onsubmit="window.handleHubSubmit(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Full Name (Optional)</label>
+                        <input type="text" placeholder="Enter your name" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Email Address (Optional)</label>
+                        <input type="email" placeholder="Enter your email" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">What would you like to do?</label>
+                        <select style="width: 100%; padding: 12px; background: #0b0f19; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 0.95rem; cursor: pointer; outline: none;">
+                            <option value="feedback">✨ Give General Feedback</option>
+                            <option value="feature">🚀 Request a New Feature</option>
+                            <option value="bug">🐛 Report a Bug / Issue</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Overall Rating</label>
+                        <select style="width: 100%; padding: 12px; background: #0b0f19; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 0.95rem; cursor: pointer; outline: none;">
+                            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ Very Good</option>
+                            <option value="3">⭐⭐⭐ Good</option>
+                            <option value="2">⭐⭐ Fair</option>
+                            <option value="1">⭐ Poor</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Your Message / Description</label>
+                        <textarea placeholder="Write your feedback or describe your feature idea here..." rows="4" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem; resize: none; line-height: 1.4;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-weight: 600; font-size: 1rem; border-radius: 8px; border: none; cursor: pointer;">Submit Request</button>
+                </form>
+            </div>
+
+            <div id="live-reviews-box" style="margin-top: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px; max-width: 650px; margin-left: auto; margin-right: auto;">
+                <h4 style="color: #fff; margin-bottom: 15px;">👥 User Reviews & Ratings</h4>
+                <div style="background: rgba(255,255,255,0.01); border: 1px dashed rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; color: #9CA3AF; font-size: 0.9rem; font-style: italic;">
+                    "Reviews and ideas will appear here live once database sync is enabled."
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="container faq-page-container">
-        <div class="faq-list">
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How does Nexis AI run completely offline?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Nexis Infinity uses highly optimized, quantized small language models (like Llama-3-Small or Phi-3) that fit inside your phone's storage and execute directly using the mobile device's Neural Processing Unit (NPU).</p>
-                </div>
+    <section id="contact" class="section-padding" style="padding: 60px 0; background: rgba(255,255,255,0.01);">
+        <div class="container">
+            <div class="section-header reveal" style="text-align: center; margin-bottom: 40px;">
+                <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 10px;">Contact & Developer Hub</h2>
+                <p style="max-width: 600px; margin: 0 auto; color: #9CA3AF;">Have a collaboration proposal or want to join the beta program? Secure encryption ensures your details stay safe.</p>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Is my personal data safe with Nexis?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, 100%. Nexis is designed with a Privacy-First core. All text processing, voice recognition, and device automation tasks occur locally inside an isolated vault on your device, ensuring zero data transmission to cloud servers.</p>
+            <div style="max-width: 650px; margin: 0 auto;" class="glass-card reveal">
+                <form id="nexis-contact-form" onsubmit="window.handleContactSubmit(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Full Name</label>
+                        <input type="text" placeholder="Enter your name" required style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Email Address</label>
+                        <input type="email" placeholder="Enter your email" required style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Subject / Purpose</label>
+                        <select style="width: 100%; padding: 12px; background: #0b0f19; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 0.95rem; cursor: pointer; outline: none;">
+                            <option value="General Query">💬 General Inquiry</option>
+                            <option value="Bug Report">🐛 Bug Report</option>
+                            <option value="Collaboration">🤝 Collaboration Proposal</option>
+                            <option value="Join Beta Request">🚀 Request to Join Beta Program</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="color: #D1D5DB; display: block; margin-bottom: 6px; font-size: 0.9rem;">Your Message</label>
+                        <textarea placeholder="Write your message here..." required rows="4" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: #fff; font-size: 0.95rem; resize: none; line-height: 1.4;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-weight: 600;">Send Message</button>
+                </form>
+
+                <div style="margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #9CA3AF;">
+                        📧 Direct Contact: <strong style="color: #fff;">nexis.infinity@gmail.com</strong>
+                    </p>
                 </div>
             </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What is the Zero-Root Accessibility API?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Unlike old-school root automation scripts, Nexis interacts with your phone via standard, official Android Accessibility permissions. This allows the AI agent to perform safe navigation, system toggles, and clicks without compromising device security.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Does running local AI drain the phone's battery?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Nexis is highly optimized for modern smartphone chipsets. By leveraging dedicated low-power NPUs instead of heavy CPU processing, battery consumption is minimized to a level similar to running a standard offline mobile game.</p>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <script src="../assets/js/main.js"></script>
+    <script type="module" src="../firebase/feedback.js"></script>
 
-    <script>
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>

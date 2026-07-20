@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /firebase/
+
+Sitemap: https://nexis-websit.vercel.app/sitemap.xml

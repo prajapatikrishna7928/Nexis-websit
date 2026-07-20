@@ -1,14 +1,136 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexis Console — Secure Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
-  
-</body>
+    <div class="cyber-grid"></div>
 
+    <div id="login-box" class="secure-login-container">
+        <div class="security-badge">🔒 ADVANCED CORE SECURITY ACTIVE</div>
+        <h2>Nexis Security Gateway</h2>
+        <p>Enter Master Cryptographic Key to access cloud database streams.</p>
+        
+        <input type="password" id="admin-pass" placeholder="Enter Security Password" autocomplete="off">
+        <div id="error-msg" class="err-text"></div>
+        <button id="login-btn" onclick="checkAdminPassword()">Verify & Open Vault</button>
+        
+        <div class="security-footer">IP Monitoring Active | Protection Mode: Strict</div>
+    </div>
+
+    <div id="admin-dashboard" class="dashboard-container" style="display: none;">
+        <header class="dashboard-header">
+            <div>
+                <h1>⚡ Nexis Cyber Intelligence Hub</h1>
+                <p id="admin-ip-display" style="font-size:0.8rem; color:#60a5fa; margin:5px 0 0 0;"></p>
+            </div>
+            <div class="header-actions">
+                <span class="sync-status" id="sync-time">Last Sync: Just Now</span>
+                <button class="logout-btn" onclick="adminLogout()">Terminate Session 🔓</button>
+            </div>
+        </header>
+
+        <div class="analytics-row">
+            <div class="metric-card">
+                <h3>Total Reviews</h3>
+                <div class="value" id="count-reviews">0</div>
+            </div>
+            <div class="metric-card">
+                <h3>Private Messages</h3>
+                <div class="value" id="count-messages">0</div>
+            </div>
+            <div class="metric-card">
+                <h3>Average Rating</h3>
+                <div class="value" id="count-avg-rating">0.0</div>
+            </div>
+            <div class="metric-card">
+                <h3>System Health</h3>
+                <div class="value" style="color:#10b981;">SECURE</div>
+            </div>
+        </div>
+
+        <div class="toolbar-box">
+            <div class="search-wrap">
+                <input type="text" id="tableSearch" placeholder="🔍 Search database by Name, Email or Message text..." onkeyup="searchAndFilterData()">
+            </div>
+            <div class="filter-wrap">
+                <select id="filterType" onchange="searchAndFilterData()">
+                    <option value="ALL">All Categories</option>
+                    <option value="feedback">✨ Feedback Only</option>
+                    <option value="feature">🚀 Features Requested</option>
+                    <option value="bug">🐛 Bugs Reported</option>
+                </select>
+                <select id="filterRating" onchange="searchAndFilterData()">
+                    <option value="ALL">All Ratings</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5 Star</option>
+                    <option value="4">⭐⭐⭐⭐ 4 Star</option>
+                    <option value="3">⭐⭐⭐ 3 Star</option>
+                    <option value="LESS">⭐⭐ or below</option>
+                </select>
+                <button class="export-btn" onclick="exportToCSV()">📥 Backup to Excel (CSV)</button>
+            </div>
+        </div>
+
+        <section class="db-section">
+            <div class="section-title-wrap">
+                <h3>👥 Public User Feedback & SLM Ratings</h3>
+                <button class="bulk-btn" onclick="bulkDelete('public_reviews')">Wipe Selected</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="40"><input type="checkbox" id="selectAllReviews" onclick="toggleSelectAll('public_reviews')"></th>
+                            <th>User Meta</th>
+                            <th>Type</th>
+                            <th>Rating</th>
+                            <th>Message / Feature Idea</th>
+                            <th>Status / Pin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviews-table-body">
+                        <tr><td colspan="7" class="status-msg">Initiating data encryption bypass...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="db-section">
+            <div class="section-title-wrap">
+                <h3>📩 Enterprise Inquiries & Private Beta Logs</h3>
+                <button class="bulk-btn" onclick="bulkDelete('private_messages')">Wipe Selected</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="40"><input type="checkbox" id="selectAllMessages" onclick="toggleSelectAll('private_messages')"></th>
+                            <th>Sender Info</th>
+                            <th>Inquiry Subject</th>
+                            <th>Secure Message Content</th>
+                            <th>Workflow Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-table-body">
+                        <tr><td colspan="6" class="status-msg">Decrypting private channels...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="db-section audit-log-box">
+            <h3>🛡️ Security Audit Logs (Session History)</h3>
+            <div id="audit-logs" class="logs-stream">
+                <div>[SYSTEM]: Security firewall online. Monitoring active.</div>
+            </div>
+        </section>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
 </html>
