@@ -1,8 +1,7 @@
-// Firebase JS SDK Modules (CDN links for Web App)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; // Auth Module
 
-// [NEW CONFIGURATION] Nexis-Websit-88408 Official Keys
 const firebaseConfig = {
   apiKey: "AIzaSyCWCOsP_WrK4mEmExs0WLjgYFJEKLzLwdE",
   authDomain: "nexis-websit-88408.firebaseapp.com",
@@ -13,9 +12,7 @@ const firebaseConfig = {
   measurementId: "G-DTXPX2KDRJ"
 };
 
-// Initialize Firebase App Instance
 const app = initializeApp(firebaseConfig);
 
-// Initialize & Export Firestore Database Engine
-const db = getFirestore(app);
-export { db };
+export const db = getFirestore(app);
+export const auth = getAuth(app); // Auth Export Kiya
