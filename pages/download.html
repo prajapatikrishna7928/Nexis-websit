@@ -136,13 +136,13 @@
         </div>
     </section>
 
-    <section class="container">
+   <section class="container">
         <div class="download-container glass-card">
             <span class="version-badge" id="ver-badge">Latest Stable: v1.0.0-Beta</span>
             <h2 style="font-size: 2.2rem; margin-bottom: 12px;">Download Nexis Infinity</h2>
             <p style="margin-bottom: 30px; color: var(--text-sec);">Experience the power of a fully offline, privacy-first autonomous voice agent directly on your Android device.</p>
             
-            <button id="dlButton" class="smart-dl-btn" onclick="startSmartDownload()">
+            <button id="dlButton" class="smart-dl-btn" onclick="startSmartDownload(); if(window.trackAPKDownload) window.trackAPKDownload();">
                 <div class="dl-progress-bar" id="progressBar"></div>
                 <div class="dl-text" id="btnText">
                     Download Production APK <span style="font-size: 1.3rem;">↓</span>
@@ -256,5 +256,20 @@
             }, 30);
         }
     </script>
+    <script type="module">
+    import { doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "../firebase/firebase-config.js";
+
+    window.trackAPKDownload = async function() {
+        try {
+            const metricsRef = doc(db, "settings", "metrics");
+            await setDoc(metricsRef, {
+                downloads: increment(1)
+            }, { merge: true });
+        } catch(e) {
+            console.log("Download tracking error:", e);
+        }
+    };
+</script>
 </body>
 </html>

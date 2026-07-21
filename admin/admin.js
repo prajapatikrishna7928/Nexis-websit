@@ -658,3 +658,47 @@ function initAdminChart(reviewsCount, messagesCount) {
         }
     });
 }
+// ==========================================
+// 🤖 AI SPAM FILTER, ABOUT CMS & DOWNLOAD COUNTER
+// ==========================================
+
+// 📥 1. Load About Text & Downloads Count
+async function loadRemainingModules() {
+    try {
+        // Load About Text
+        const aboutSnap = await getDoc(doc(db, "settings", "about_config"));
+        if (aboutSnap.exists() && document.getElementById("cms-about-text")) {
+            document.getElementById("cms-about-text").value = aboutSnap.data().text || "";
+        }
+
+        // Load Download Counter
+        const countSnap = await getDoc(doc(db, "settings", "metrics"));
+        if (countSnap.exists() && document.getElementById("admin-download-count")) {
+            document.getElementById("admin-download-count").innerText = countSnap.data().downloads || 0;
+        }
+    } catch(e) {
+        console.error("Error loading remaining modules:", e);
+    }
+}
+
+// 💾 2. Save About Section CMS
+window.saveAboutCMS = async function() {
+    const text = document.getElementById("cms-about-text").value.trim();
+    try {
+        await setDoc(doc(db, "settings", "about_config"), { text: text }, { merge: true });
+        alert("🎉 About Text Saved Successfully!");
+    } catch(e) {
+        alert("❌ Failed to save.");
+    }
+};
+
+// 🤖 3. AI Spam Detector Helper (Exported for Frontend Review Check)
+window.isSpamText = function(text) {
+    if (!text) return false;
+    const spamWords = ["free money", "crypto bot", "http://", "https://", "earn fast", "hack", "buy now", "click here"];
+    const lower = text.toLowerCase();
+    return spamWords.some(word => lower.includes(word));
+};
+
+// Auto run loader
+loadRemainingModules();
