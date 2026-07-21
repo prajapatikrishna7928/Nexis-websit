@@ -138,7 +138,7 @@
 
     <section class="container">
         <div class="download-container glass-card">
-            <span class="version-badge">Latest Stable: v1.0.0-Beta</span>
+            <span class="version-badge" id="ver-badge">Latest Stable: v1.0.0-Beta</span>
             <h2 style="font-size: 2.2rem; margin-bottom: 12px;">Download Nexis Infinity</h2>
             <p style="margin-bottom: 30px; color: var(--text-sec);">Experience the power of a fully offline, privacy-first autonomous voice agent directly on your Android device.</p>
             
@@ -159,16 +159,16 @@
             
             <div class="meta-info">
                 <div>
-                    <strong>Size</strong>
-                    42.5 MB
+                    <strong id="file-size-display">42.5 MB</strong>
+                    Size
                 </div>
                 <div>
-                    <strong>Requirements</strong>
-                    Android 10+ (NPU Preferred)
+                    <strong>Android 10+</strong>
+                    Requirements
                 </div>
                 <div>
-                    <strong>Developer</strong>
-                    Krishna Prajapati
+                    <strong>Krishna Prajapati</strong>
+                    Developer
                 </div>
             </div>
         </div>
@@ -176,10 +176,45 @@
 
     <script src="../assets/js/main.js"></script>
 
+    <script type="module">
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { db } from "../firebase/firebase-config.js";
+
+        // Global variable jisme admin ka daala hua link save hoga
+        window.dynamicApkUrl = ""; 
+
+        async function syncLiveAPKData() {
+            try {
+                const docRef = doc(db, "settings", "app_config");
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    // Admin Panel se aane wala data HTML me set karein
+                    if (data.version) {
+                        document.getElementById("ver-badge").innerText = `Latest Stable: ${data.version}`;
+                    }
+                    if (data.fileSize) {
+                        document.getElementById("file-size-display").innerText = data.fileSize;
+                    }
+                    if (data.downloadUrl) {
+                        window.dynamicApkUrl = data.downloadUrl;
+                    }
+                }
+            } catch(e) {
+                console.log("Offline or error fetching APK config. Using fallback.");
+            }
+        }
+
+        // Page load hote hi Firestore se data fetch karein
+        syncLiveAPKData();
+    </script>
+
     <script>
         function startSmartDownload() {
-            // ⚠️ यहाँ अपना GITHUB RELEASES का असली लिंक डालें ⚠️
-            const githubApkUrl = "यहाँ_अपना_GITHUB_RELEASES_का_लिंक_डालें"; 
+            // Agar Firestore se link aa gaya hai to wo use hoga, warna fallback link
+            const apkUrl = window.dynamicApkUrl || "https://github.com/krishnaprajapati/nexis-infinity/releases/latest"; 
             
             const btn = document.getElementById("dlButton");
             const progressBar = document.getElementById("progressBar");
@@ -193,7 +228,7 @@
             
             let progress = 0;
             
-            // हर 30 मिलीसेकंड में प्रोग्रेस बढ़ाना (टोटल 3 सेकंड का एनीमेशन)
+            // हर 30 मिलीसेकंड में प्रोग्रेस बढ़ाना
             const interval = setInterval(() => {
                 progress += 1;
                 progressBar.style.width = progress + "%";
@@ -204,15 +239,15 @@
                     
                     // 100% होते ही बटन का रूप बदलना
                     btnText.innerHTML = "✔ Download Ready!";
-                    progressBar.style.background = "#10b981"; // हरा रंग
+                    progressBar.style.background = "#10b981"; 
                     
                     // इंस्टॉल प्रॉम्प्ट बॉक्स को दिखाना
                     installPrompt.style.display = "block";
-                    installLink.href = githubApkUrl;
+                    installLink.href = apkUrl;
                     
-                    // असली डाउनलोड ट्रिगर करना (ब्राउज़र अपने आप फाइल सेव कर लेगा)
+                    // असली डाउनलोड ट्रिगर करना
                     const a = document.createElement("a");
-                    a.href = githubApkUrl;
+                    a.href = apkUrl;
                     a.download = "Nexis-Infinity.apk";
                     document.body.appendChild(a);
                     a.click();

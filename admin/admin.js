@@ -1,6 +1,14 @@
+// 📦 FIREBASE & FIRESTORE IMPORTS
 import { db, auth } from "../firebase/firebase-config.js";
-import { collection, getDocs, doc, deleteDoc, query, orderBy, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, getDocs, doc, deleteDoc, query, orderBy, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+// 🔐 SECURITY CORE VARIABLE CONTEXT
+let loginAttempts = 0;
+const MAX_ATTEMPTS = 3;
+let autoLockTimer;
+
+
 
 // 🔐 SECURITY CORE VARIABLE CONTEXT
 let loginAttempts = 0;
@@ -70,6 +78,7 @@ onAuthStateChanged(auth, (user) => {
         captureAdminIP();
         loadAdminDashboardData();
         resetInactivityTimer();
+        loadAPKConfig();
     } else {
         // Session Terminated or Inactive
         if (loginBox) loginBox.style.display = "block";
@@ -327,3 +336,63 @@ function logAction(msg) {
         logBox.scrollTop = logBox.scrollHeight;
     }
 }
+// ==========================================
+// 📱 MODULE 3: APK VERSION MANAGER LOGIC
+// ==========================================
+
+// 📥 1. Load Current APK Settings from Firestore
+async function loadAPKConfig() {
+    try {
+        const docRef = doc(db, "settings", "app_config");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const verElem = document.getElementById("apk-version");
+            const urlElem = document.getElementById("apk-url");
+            const sizeElem = document.getElementById("apk-size");
+            const logElem = document.getElementById("apk-changelog");
+            const badgeElem = document.getElementById("current-apk-badge");
+
+            if (verElem) verElem.value = data.version || "";
+            if (urlElem) urlElem.value = data.downloadUrl || "";
+            if (sizeElem) sizeElem.value = data.fileSize || "";
+            if (logElem) logElem.value = data.changelog || "";
+            if (badgeElem) badgeElem.innerText = `Current: ${data.version || 'v1.0.0'}`;
+        }
+    } catch (e) {
+        console.error("APK Config Fetch Error:", e);
+    }
+}
+
+// 💾 2. Save New APK Settings to Firestore
+window.saveAPKConfig = async function() {
+    const version = document.getElementById("apk-version").value.trim();
+    const downloadUrl = document.getElementById("apk-url").value.trim();
+    const fileSize = document.getElementById("apk-size").value.trim();
+    const changelog = document.getElementById("apk-changelog").value.trim();
+
+    if (!version || !downloadUrl) {
+        alert("⚠️ Please fill in both Version Number and Download URL!");
+        return;
+    }
+
+    try {
+        await setDoc(doc(db, "settings", "app_config"), {
+            version: version,
+            downloadUrl: downloadUrl,
+            fileSize: fileSize,
+            changelog: changelog,
+            updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        alert("🎉 APK Configuration Updated Successfully!");
+        if (typeof logAction === "function") {
+            logAction(`CONFIG UPDATE: New APK metadata saved -> Version: ${version}`);
+        }
+        loadAPKConfig();
+    } catch (e) {
+        alert("❌ Failed to update APK settings.");
+        console.error("Save Error:", e);
+    }
+};

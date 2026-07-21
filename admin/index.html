@@ -6,40 +6,37 @@
     <title>Nexis Console — Secure Admin Panel</title>
     <link rel="stylesheet" href="admin.css">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' https: data:;">
-<meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
     <div class="cyber-grid"></div>
 
-<div id="login-box" class="secure-login-container">
-    <div class="security-badge">🔒 ADVANCED CORE SECURITY ACTIVE</div>
-    <h2>Nexis Security Gateway</h2>
-    <p>Enter Master Cryptographic Credentials to access cloud database streams.</p>
-    
-    <input 
-        type="email" 
-        id="admin-email" 
-        placeholder="Enter Admin Email" 
-        autocomplete="off"
-    >
+    <div id="login-box" class="secure-login-container">
+        <div class="security-badge">🔒 ADVANCED CORE SECURITY ACTIVE</div>
+        <h2>Nexis Security Gateway</h2>
+        <p>Enter Master Cryptographic Credentials to access cloud database streams.</p>
+        
+        <input 
+            type="email" 
+            id="admin-email" 
+            placeholder="Enter Admin Email" 
+            autocomplete="off"
+        >
 
-    <input 
-        type="password" 
-        id="admin-pass" 
-        placeholder="Enter Security Password" 
-        autocomplete="off"
-    >
+        <input 
+            type="password" 
+            id="admin-pass" 
+            placeholder="Enter Security Password" 
+            autocomplete="off"
+        >
 
-    <div id="error-msg" class="err-text"></div>
-    <button id="login-btn" onclick="checkAdminPassword()">Verify & Open Vault</button>
-    
-    <div class="security-footer">IP Monitoring Active | Protection Mode: Strict</div>
-</div>
-
-
+        <div id="error-msg" class="err-text"></div>
+        <button id="login-btn" onclick="checkAdminPassword()">Verify & Open Vault</button>
+        
+        <div class="security-footer">IP Monitoring Active | Protection Mode: Strict</div>
+    </div>
 
     <div id="admin-dashboard" class="dashboard-container" style="display: none;">
         <header class="dashboard-header">
@@ -93,6 +90,39 @@
                 <button class="export-btn" onclick="exportToCSV()">📥 Backup to Excel (CSV)</button>
             </div>
         </div>
+
+        <section class="table-section" style="margin-top: 25px; margin-bottom: 25px;">
+            <div class="section-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="margin: 0; font-size: 1.2rem; color: #fff;">📱 APK Version Manager</h2>
+                <span class="badge-status status-resolved" id="current-apk-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">Current: Checking...</span>
+            </div>
+            
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); padding: 20px; border-radius: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                <div>
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">Version Number</label>
+                    <input type="text" id="apk-version" placeholder="e.g., v1.0.1" style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <div>
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">APK Download URL</label>
+                    <input type="url" id="apk-url" placeholder="https://..." style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <div>
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">File Size</label>
+                    <input type="text" id="apk-size" placeholder="e.g., 24.5 MB" style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">Changelog / Release Notes</label>
+                    <textarea id="apk-changelog" rows="3" placeholder="Enter release updates and new features..." style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; resize: vertical; box-sizing: border-box; outline: none; font-family: inherit;"></textarea>
+                </div>
+
+                <div style="grid-column: 1 / -1; text-align: right; margin-top: 5px;">
+                    <button onclick="saveAPKConfig()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; border: none; padding: 10px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">🚀 Update Live APK Settings</button>
+                </div>
+            </div>
+        </section>
 
         <section class="db-section">
             <div class="section-title-wrap">
