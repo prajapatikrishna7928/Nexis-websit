@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexis Infinity — Next-Gen Autonomous AI & Voice Agent</title>
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' https: data:;">
+    <meta http-equiv="Content-Security-Policy" content ="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' https: data:;">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -15,6 +14,14 @@
     <meta name="author" content="Krishna Prajapati">
     <link rel="canonical" href="https://nexisinfinity.com">
     <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nexis Infinity">
+    <link rel="apple-touch-icon" href="logo.png">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nexisinfinity.com/">
@@ -52,7 +59,6 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="manifest" href="manifest.json">
     <script type="module" src="firebase/feedback.js"></script>
 </head>
 
@@ -743,6 +749,87 @@
         } catch(e) {}
     }
     checkMaintenance();
+</script>
+    <div id="nexis-chat-widget" style="position: fixed; bottom: 25px; right: 25px; z-index: 9999;">
+        <button onclick="toggleNexisChat()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">
+            💬
+        </button>
+
+        <div id="nexis-chat-box" style="display: none; position: absolute; bottom: 70px; right: 0; width: 320px; height: 420px; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); flex-direction: column; overflow: hidden;">
+            <div style="background: #1e293b; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 1.2rem;">🤖</span>
+                    <strong style="color: #fff; font-size: 0.95rem;">Nexis Assistant</strong>
+                </div>
+                <button onclick="toggleNexisChat()" style="background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
+            </div>
+
+            <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
+                <div style="background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 8px; max-width: 85%;">
+                    👋 Hello! I am Nexis AI. How can I help you explore Nexis Infinity today?
+                </div>
+            </div>
+
+            <div style="padding: 10px; background: #1e293b; display: flex; gap: 8px; border-top: 1px solid #334155;">
+                <input type="text" id="widget-user-input" placeholder="Ask about Nexis AI..." style="flex: 1; padding: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; outline: none; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') sendWidgetMessage()">
+                <button onclick="sendWidgetMessage()" style="background: #0284c7; color: #fff; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleNexisChat() {
+            const box = document.getElementById("nexis-chat-box");
+            box.style.display = box.style.display === "none" || box.style.display === "" ? "flex" : "none";
+        }
+
+        function sendWidgetMessage() {
+            const input = document.getElementById("widget-user-input");
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const container = document.getElementById("chat-messages");
+
+            // User Message
+            const userDiv = document.createElement("div");
+            userDiv.style.cssText = "background: #0284c7; color: #fff; padding: 10px; border-radius: 8px; align-self: flex-end; max-width: 85%;";
+            userDiv.innerText = msg;
+            container.appendChild(userDiv);
+
+            input.value = "";
+            container.scrollTop = container.scrollHeight;
+
+            // Bot Response
+            setTimeout(() => {
+                const botDiv = document.createElement("div");
+                botDiv.style.cssText = "background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 8px; align-self: flex-start; max-width: 85%;";
+                
+                const lowerMsg = msg.toLowerCase();
+                if (lowerMsg.includes("download") || lowerMsg.includes("apk")) {
+                    botDiv.innerText = "You can download the latest APK directly from the download section on this page!";
+                } else if (lowerMsg.includes("feature") || lowerMsg.includes("what can you do")) {
+                    botDiv.innerText = "Nexis Infinity offers offline voice execution, phone automation, and privacy-first edge intelligence!";
+                } else {
+                    botDiv.innerText = "Thanks for asking! Nexis AI is engineered for autonomous phone automation and zero-latency voice interaction.";
+                }
+
+                container.appendChild(botDiv);
+                container.scrollTop = container.scrollHeight;
+            }, 600);
+        }
+    </script>
+    <script>
+    window.addEventListener('load', () => {
+        if ("Notification" in window && Notification.permission === "default") {
+            setTimeout(() => {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        console.log("Notification permission granted!");
+                    }
+                });
+            }, 4000); // 4 सेकंड बाद पूछेगा
+        }
+    });
 </script>
 
 </body>
