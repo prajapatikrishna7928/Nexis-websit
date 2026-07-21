@@ -516,3 +516,145 @@ window.deleteFAQ = async function(id) {
         }
     }
 };
+// ==========================================
+// ⚙️ MODULE 7: GLOBAL SETTINGS LOGIC
+// ==========================================
+
+// 📥 Load Global Settings
+async function loadGlobalSettings() {
+    try {
+        const docRef = doc(db, "settings", "global_config");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (document.getElementById("set-insta")) document.getElementById("set-insta").value = data.insta || "";
+            if (document.getElementById("set-telegram")) document.getElementById("set-telegram").value = data.telegram || "";
+            if (document.getElementById("set-email")) document.getElementById("set-email").value = data.email || "";
+        }
+    } catch (e) {
+        console.error("Error loading global settings:", e);
+    }
+}
+
+// 💾 Save Global Settings
+window.saveGlobalSettings = async function() {
+    const insta = document.getElementById("set-insta").value.trim();
+    const telegram = document.getElementById("set-telegram").value.trim();
+    const email = document.getElementById("set-email").value.trim();
+
+    try {
+        await setDoc(doc(db, "settings", "global_config"), {
+            insta: insta,
+            telegram: telegram,
+            email: email,
+            updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        alert("🎉 Global Settings Saved Successfully!");
+    } catch (e) {
+        alert("❌ Failed to save global settings.");
+    }
+};
+
+// 🗑️ Delete Review Action
+window.deleteReviewItem = async function(reviewId) {
+    if (confirm("Are you sure you want to delete this review?")) {
+        try {
+            await deleteDoc(doc(db, "public_reviews", reviewId));
+            alert("🗑️ Review deleted.");
+            if (typeof loadAdminData === "function") loadAdminData();
+        } catch(e) {
+            alert("❌ Action failed.");
+        }
+    }
+};
+// ==========================================
+// ⚡ TOGGLES, CHART & REVIEW APPROVAL LOGIC
+// ==========================================
+
+// 📥 Load System Toggles
+async function loadSystemToggles() {
+    try {
+        const docRef = doc(db, "settings", "system_controls");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const maintEl = document.getElementById("toggle-maintenance");
+            const appEl = document.getElementById("toggle-approval");
+
+            if (maintEl) maintEl.checked = !!data.maintenanceMode;
+            if (appEl) appEl.checked = !!data.requireApproval;
+        }
+    } catch(e) {
+        console.error("Error loading toggles:", e);
+    }
+}
+
+// 💾 Save System Toggles
+window.saveSystemToggles = async function() {
+    const maint = document.getElementById("toggle-maintenance").checked;
+    const approval = document.getElementById("toggle-approval").checked;
+
+    try {
+        await setDoc(doc(db, "settings", "system_controls"), {
+            maintenanceMode: maint,
+            requireApproval: approval,
+            updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        alert("⚙️ System Toggles Updated!");
+    } catch(e) {
+        alert("❌ Failed to update settings.");
+    }
+};
+
+// ✅ Approve Review Action
+window.approveReview = async function(reviewId) {
+    try {
+        await updateDoc(doc(db, "public_reviews", reviewId), {
+            status: "approved"
+        });
+        alert("✅ Review Approved & Published!");
+        if (typeof loadAdminData === "function") loadAdminData();
+    } catch(e) {
+        alert("❌ Failed to approve review.");
+    }
+};
+
+// 📊 Render Chart.js Analytics Graph
+function initAdminChart(reviewsCount, messagesCount) {
+    const ctx = document.getElementById('adminAnalyticsChart');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['User Reviews', 'Private Messages', 'APK Downloads'],
+            datasets: [{
+                label: 'Total Platform Activity',
+                data: [reviewsCount || 0, messagesCount || 0, 150], // 150 static base placeholder
+                backgroundColor: [
+                    'rgba(56, 189, 248, 0.6)',
+                    'rgba(16, 185, 129, 0.6)',
+                    'rgba(168, 85, 247, 0.6)'
+                ],
+                borderColor: [
+                    '#38bdf8',
+                    '#10b981',
+                    '#a855f7'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, ticks: { color: '#94a3b8' } },
+                x: { ticks: { color: '#94a3b8' } }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+}

@@ -582,9 +582,9 @@
                 <div>
                     <h4 style="margin-bottom: 16px;">Connect & Support</h4>
                     <ul class="footer-links">
-                        <li><a href="https://instagram.com/nexis.infinity" target="_blank" rel="noopener noreferrer">Instagram (@nexis.infinity)</a></li>
-                        <li><a href="https://t.me/nexisinfinity" target="_blank" rel="noopener noreferrer">Telegram (@nexisinfinity)</a></li>
-                        <li><a href="mailto:nexis.infinity@gmail.com">Email: nexis.infinity@gmail.com</a></li>
+                        <li><a id="live-insta-link" href="https://instagram.com/nexis.infinity" target="_blank" rel="noopener noreferrer">Instagram (@nexis.infinity)</a></li>
+                        <li><a id="live-telegram-link" href="https://t.me/nexisinfinity" target="_blank" rel="noopener noreferrer">Telegram (@nexisinfinity)</a></li>
+                        <li><a id="live-email-link" href="mailto:nexis.infinity@gmail.com">Email: nexis.infinity@gmail.com</a></li>
                         <li><a href="#feedback">Report a Bug</a></li>
                     </ul>
                 </div>
@@ -691,6 +691,58 @@
     }
 
     loadLiveFAQs();
+</script>
+<script type="module">
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "./firebase/firebase-config.js";
+
+    async function syncGlobalSettings() {
+        try {
+            const docRef = doc(db, "settings", "global_config");
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                const instaEl = document.getElementById("live-insta-link");
+                const teleEl = document.getElementById("live-telegram-link");
+                const emailEl = document.getElementById("live-email-link");
+
+                if (instaEl && data.insta) {
+                    instaEl.href = data.insta;
+                }
+                if (teleEl && data.telegram) {
+                    teleEl.href = data.telegram;
+                }
+                if (emailEl && data.email) {
+                    emailEl.href = "mailto:" + data.email;
+                    emailEl.innerText = "Email: " + data.email;
+                }
+            }
+        } catch(e) {
+            console.log("Using fallback global settings.");
+        }
+    }
+
+    syncGlobalSettings();
+</script>
+<script type="module">
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "./firebase/firebase-config.js";
+
+    async function checkMaintenance() {
+        try {
+            const docSnap = await getDoc(doc(db, "settings", "system_controls"));
+            if (docSnap.exists() && docSnap.data().maintenanceMode) {
+                document.body.innerHTML = `
+                    <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; color: #fff; font-family: sans-serif; text-align: center; padding: 20px;">
+                        <h1 style="font-size: 3rem; margin-bottom: 10px;">🚧 Under Maintenance</h1>
+                        <p style="color: #94a3b8; max-width: 500px; line-height: 1.6;">We are currently performing scheduled system updates on Nexis Infinity. Please check back in a few minutes!</p>
+                    </div>
+                `;
+            }
+        } catch(e) {}
+    }
+    checkMaintenance();
 </script>
 
 </body>

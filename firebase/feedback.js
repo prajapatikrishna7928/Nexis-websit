@@ -1,5 +1,5 @@
 import { db } from "./firebase-config.js";
-import { collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // 1. Intelligence Hub (Feedback & Rating) को डेटाबेस में सेव करना
 async function handleHubSubmit(event) {
@@ -27,15 +27,33 @@ async function handleHubSubmit(event) {
     }
 
     try {
+        // 🔍 Check System Control: क्या Admin ने Review Approval Toggle ON किया है?
+        let initialStatus = "approved"; // By default auto-approve
+        try {
+            const toggleSnap = await getDoc(doc(db, "settings", "system_controls"));
+            if (toggleSnap.exists() && toggleSnap.data().requireApproval) {
+                initialStatus = "pending";
+            }
+        } catch (err) {
+            console.log("Using default approval status");
+        }
+
         await addDoc(collection(db, "public_reviews"), {
             userName: name,
             userEmail: email,
             feedbackType: type,
             rating: Number(rating),
             message: message,
-            timestamp: new Date()
+            status: initialStatus, // 'pending' or 'approved'
+            timestamp: new Date().toISOString()
         });
-        alert("🎉 Thank you! Your review has been submitted successfully.");
+
+        if (initialStatus === "pending") {
+            alert("🎉 Thank you! Your review has been submitted for admin approval.");
+        } else {
+            alert("🎉 Thank you! Your review is now live.");
+        }
+
         form.reset();
         loadLiveReviews(); // लिस्ट तुरंत रिफ्रेश करें
     } catch (e) {
@@ -71,7 +89,7 @@ async function handleContactSubmit(event) {
 
     try {
         await addDoc(collection(db, "private_messages"), {
-            name, email, subject, message, timestamp: new Date()
+            name, email, subject, message, timestamp: new Date().toISOString()
         });
         alert("🚀 Message Sent! We will get back to you soon.");
         form.reset();
@@ -84,7 +102,7 @@ async function handleContactSubmit(event) {
     btn.disabled = false;
 }
 
-// 3. डेटाबेस से लाइव रिव्यू लाकर स्क्रीन पर दिखाना
+// 3. डेटाबेस से लाइव रिव्यू लाकर स्क्रीन पर दिखाना (Only Approved Reviews)
 async function loadLiveReviews() {
     const container = document.getElementById('live-reviews-box');
     if (!container) return;
@@ -93,12 +111,20 @@ async function loadLiveReviews() {
         const q = query(collection(db, "public_reviews"), orderBy("timestamp", "desc"));
         const querySnapshot = await getDocs(q);
         let reviewsHTML = "";
+        let visibleCount = 0;
 
         if (querySnapshot.empty) {
             reviewsHTML = `<p style="color: #9CA3AF; text-align: center; font-size: 0.9rem;">No reviews yet. Be the first to share your experience!</p>`;
         } else {
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
+            querySnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+
+                // 🛡️ Filter: केवल वही दिखेगा जो approved हो (या जिसमें पुराना status न लिखा हो)
+                if (data.status && data.status !== "approved") {
+                    return; 
+                }
+
+                visibleCount++;
                 const stars = "⭐".repeat(data.rating || 5);
                 reviewsHTML += `
                     <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 18px; margin-bottom: 12px; border-radius: 12px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; backdrop-filter: blur(10px);">
@@ -111,20 +137,24 @@ async function loadLiveReviews() {
                     </div>
                 `;
             });
+
+            if (visibleCount === 0) {
+                reviewsHTML = `<p style="color: #9CA3AF; text-align: center; font-size: 0.9rem;">No approved reviews yet.</p>`;
+            }
         }
 
         container.innerHTML = `<h4 style="color: #fff; margin-bottom: 20px; text-align: center;">👥 Live User Reviews & Ratings</h4>` + reviewsHTML;
     } catch (e) {
-        console.log("Firebase API Keys अभी नहीं डाली गई हैं या डेटाबेस टेस्ट मोड में नहीं है।");
+        console.log("Firebase Connection या Indexing Check करें।", e);
     }
 }
 
-// ग्लोबल फंक्शन्स बनाना ताकि HTML सीधे इन्हें एक्सेस कर सके
+// ग्लोबल फंक्शन्स बनाना
 window.handleHubSubmit = handleHubSubmit;
 window.handleContactSubmit = handleContactSubmit;
 window.loadLiveReviews = loadLiveReviews;
 
-// पेज लोड होते ही रिव्यू अपने आप आ जाएं
+// पेज लोड होते ही रिव्यू लोड करें
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(loadLiveReviews, 1000);
 });
