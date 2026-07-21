@@ -9,17 +9,32 @@
 <body>
     <div class="cyber-grid"></div>
 
-    <div id="login-box" class="secure-login-container">
-        <div class="security-badge">🔒 ADVANCED CORE SECURITY ACTIVE</div>
-        <h2>Nexis Security Gateway</h2>
-        <p>Enter Master Cryptographic Key to access cloud database streams.</p>
-        
-        <input type="password" id="admin-pass" placeholder="Enter Security Password" autocomplete="off">
-        <div id="error-msg" class="err-text"></div>
-        <button id="login-btn" onclick="checkAdminPassword()">Verify & Open Vault</button>
-        
-        <div class="security-footer">IP Monitoring Active | Protection Mode: Strict</div>
-    </div>
+<div id="login-box" class="secure-login-container">
+    <div class="security-badge">🔒 ADVANCED CORE SECURITY ACTIVE</div>
+    <h2>Nexis Security Gateway</h2>
+    <p>Enter Master Cryptographic Credentials to access cloud database streams.</p>
+    
+    <input 
+        type="email" 
+        id="admin-email" 
+        placeholder="Enter Admin Email" 
+        autocomplete="off"
+    >
+
+    <input 
+        type="password" 
+        id="admin-pass" 
+        placeholder="Enter Security Password" 
+        autocomplete="off"
+    >
+
+    <div id="error-msg" class="err-text"></div>
+    <button id="login-btn" onclick="checkAdminPassword()">Verify & Open Vault</button>
+    
+    <div class="security-footer">IP Monitoring Active | Protection Mode: Strict</div>
+</div>
+
+
 
     <div id="admin-dashboard" class="dashboard-container" style="display: none;">
         <header class="dashboard-header">
