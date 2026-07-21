@@ -73,6 +73,7 @@ onAuthStateChanged(auth, (user) => {
         loadAdminDashboardData();
         resetInactivityTimer();
         loadAPKConfig();
+        loadAdminFAQs();
     } else {
         // Session Terminated or Inactive
         if (loginBox) loginBox.style.display = "block";
@@ -437,5 +438,81 @@ window.saveCMSContent = async function() {
     } catch (e) {
         alert("❌ Failed to update website content.");
         console.error("CMS Save Error:", e);
+    }
+};
+// ==========================================
+// ❓ FAQ MANAGER LOGIC
+// ==========================================
+
+// ➕ 1. Add New FAQ
+window.addNewFAQ = async function() {
+    const q = document.getElementById("faq-question").value.trim();
+    const a = document.getElementById("faq-answer").value.trim();
+
+    if (!q || !a) {
+        alert("⚠️ Please enter both Question and Answer!");
+        return;
+    }
+
+    try {
+        const faqRef = doc(collection(db, "faqs"));
+        await setDoc(faqRef, {
+            question: q,
+            answer: a,
+            createdAt: new Date().toISOString()
+        });
+
+        alert("🎉 FAQ Added Successfully!");
+        document.getElementById("faq-question").value = "";
+        document.getElementById("faq-answer").value = "";
+        loadAdminFAQs();
+    } catch(e) {
+        alert("❌ Failed to add FAQ.");
+        console.error(e);
+    }
+};
+
+// 📥 2. Fetch & Display FAQs in Admin
+async function loadAdminFAQs() {
+    const container = document.getElementById("faq-list-container");
+    if (!container) return;
+
+    try {
+        const q = query(collection(db, "faqs"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        
+        if (snap.empty) {
+            container.innerHTML = `<p style="color: #94a3b8; font-size: 0.85rem;">No active FAQs found.</p>`;
+            return;
+        }
+
+        let html = `<h4 style="color: #38bdf8; margin-bottom: 10px;">Active Live FAQs:</h4>`;
+        snap.forEach((docItem) => {
+            const data = docItem.data();
+            html += `
+                <div style="background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <strong style="color: #fff; display: block; font-size: 0.95rem;">❓ ${data.question}</strong>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin: 5px 0 0 0;">${data.answer}</p>
+                    </div>
+                    <button onclick="deleteFAQ('${docItem.id}')" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 0.75rem;">Delete</button>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    } catch(e) {
+        container.innerHTML = `<p style="color: #ef4444; font-size: 0.85rem;">Error loading FAQs.</p>`;
+    }
+}
+
+// 🗑️ 3. Delete FAQ
+window.deleteFAQ = async function(id) {
+    if (confirm("Are you sure you want to delete this FAQ?")) {
+        try {
+            await deleteDoc(doc(db, "faqs", id));
+            loadAdminFAQs();
+        } catch(e) {
+            alert("❌ Failed to delete FAQ.");
+        }
     }
 };

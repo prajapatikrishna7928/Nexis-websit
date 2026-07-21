@@ -400,7 +400,7 @@
 
         <div class="faq-section-container">
             
-            <div class="faq-list" style="margin-bottom: 60px;">
+            <div class="faq-list" id="live-faq-container" style="margin-bottom: 60px;">
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>How does Nexis AI run completely offline?</span>
@@ -499,6 +499,43 @@
         </div>
     </div>
 </section>
+
+<script type="module">
+    import { collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "./firebase/firebase-config.js";
+
+    async function loadLiveFAQs() {
+        const faqContainer = document.getElementById("live-faq-container");
+        if (!faqContainer) return;
+
+        try {
+            const q = query(collection(db, "faqs"), orderBy("createdAt", "desc"));
+            const snap = await getDocs(q);
+
+            if (!snap.empty) {
+                let html = "";
+                snap.forEach((docItem) => {
+                    const data = docItem.data();
+                    html += `
+                        <div class="faq-item" style="margin-bottom: 15px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); padding: 18px 20px; border-radius: 12px;">
+                            <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                                <span style="font-weight: 600; color: #fff; font-size: 1.05rem;">❓ ${data.question}</span>
+                            </div>
+                            <div class="faq-answer" style="margin-top: 10px; color: #9CA3AF; font-size: 0.95rem; line-height: 1.5;">
+                                <p style="margin: 0;">${data.answer}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                faqContainer.innerHTML = html;
+            }
+        } catch (e) {
+            console.log("Using default fallback FAQs.");
+        }
+    }
+
+    loadLiveFAQs();
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -623,8 +660,38 @@
         });
     });
 </script>
+<script type="module">
+    import { collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "./firebase/firebase-config.js";
 
+    async function loadLiveFAQs() {
+        const faqContainer = document.getElementById("live-faq-container");
+        if (!faqContainer) return;
+
+        try {
+            const q = query(collection(db, "faqs"), orderBy("createdAt", "desc"));
+            const snap = await getDocs(q);
+
+            if (!snap.empty) {
+                let html = "";
+                snap.forEach((docItem) => {
+                    const data = docItem.data();
+                    html += `
+                        <div class="faq-item">
+                            <h3 class="faq-question">❓ ${data.question}</h3>
+                            <p class="faq-answer">${data.answer}</p>
+                        </div>
+                    `;
+                });
+                faqContainer.innerHTML = html;
+            }
+        } catch (e) {
+            console.log("FAQ fetch error or offline fallback.");
+        }
+    }
+
+    loadLiveFAQs();
+</script>
 
 </body>
 </html>
-

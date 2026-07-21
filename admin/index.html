@@ -149,6 +149,38 @@
         </div>
     </div>
 </section>
+        <section class="table-section" style="margin-top: 25px; margin-bottom: 25px;">
+            <div class="section-title" style="margin-bottom: 15px;">
+                <h2 style="margin: 0; font-size: 1.2rem; color: #fff;">❓ Live FAQ Manager</h2>
+            </div>
+            
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); padding: 20px; border-radius: 10px; display: grid; grid-template-columns: 1fr; gap: 15px;">
+                <div>
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">Question</label>
+                    <input type="text" id="faq-question" placeholder="e.g., Is Nexis Infinity completely offline?" style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <div>
+                    <label style="color: #38bdf8; font-size: 0.85rem; display: block; margin-bottom: 6px; font-weight: 500;">Answer</label>
+                    <textarea id="faq-answer" rows="3" placeholder="Enter detailed answer here..." style="width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 6px; resize: vertical; box-sizing: border-box; outline: none; font-family: inherit;"></textarea>
+                </div>
+
+                <div style="text-align: right;">
+                    <button onclick="addNewFAQ()" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: #fff; border: none; padding: 10px 24px; border-radius: 6px; font-weight: 600; cursor: pointer;">➕ Add New FAQ</button>
+                </div>
+
+                <div id="faq-list-container" style="margin-top: 15px; border-top: 1px solid #334155; padding-top: 15px;">
+                    <p style="color: #94a3b8; font-size: 0.85rem;">Loading active FAQs...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="db-section">
+            <div class="section-title-wrap">
+                <h3>👥 Public User Feedback & SLM Ratings</h3>
+                <button class="bulk-btn" onclick="bulkDelete('public_reviews')">Wipe Selected</button>
+            </div>
+            </section>
 
 
         <section class="db-section">
