@@ -3,20 +3,14 @@ import { db, auth } from "../firebase/firebase-config.js";
 import { collection, getDocs, doc, deleteDoc, query, orderBy, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// 🔐 SECURITY CORE VARIABLE CONTEXT
-let loginAttempts = 0;
-const MAX_ATTEMPTS = 3;
-let autoLockTimer;
-
-
-
-// 🔐 SECURITY CORE VARIABLE CONTEXT
+// 🔐 SECURITY CORE VARIABLE CONTEXT (सिर्फ एक बार)
 let loginAttempts = 0;
 const MAX_ATTEMPTS = 3;
 let autoLockTimer;
 let masterCacheData = { reviews: [], messages: [] };
 
 // 📡 AUTONOMOUS OPERATOR TRACKER
+
 async function captureAdminIP() {
     try {
         const res = await fetch('https://api.ipify.org?format=json');
