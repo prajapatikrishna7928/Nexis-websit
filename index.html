@@ -778,46 +778,73 @@
     </div>
 
     <script>
-        function toggleNexisChat() {
-            const box = document.getElementById("nexis-chat-box");
-            box.style.display = box.style.display === "none" || box.style.display === "" ? "flex" : "none";
-        }
+    function toggleNexisChat() {
+        const box = document.getElementById("nexis-chat-box");
+        box.style.display = box.style.display === "none" || box.style.display === "" ? "flex" : "none";
+    }
 
-        function sendWidgetMessage() {
-            const input = document.getElementById("widget-user-input");
-            const msg = input.value.trim();
-            if (!msg) return;
+    function sendWidgetMessage() {
+        const input = document.getElementById("widget-user-input");
+        const msg = input.value.trim();
+        if (!msg) return;
 
-            const container = document.getElementById("chat-messages");
+        const container = document.getElementById("chat-messages");
 
-            // User Message
-            const userDiv = document.createElement("div");
-            userDiv.style.cssText = "background: #0284c7; color: #fff; padding: 10px; border-radius: 8px; align-self: flex-end; max-width: 85%;";
-            userDiv.innerText = msg;
-            container.appendChild(userDiv);
+        // 1. Show User Message
+        const userDiv = document.createElement("div");
+        userDiv.style.cssText = "background: #0284c7; color: #fff; padding: 10px; border-radius: 8px; align-self: flex-end; max-width: 85%; margin-bottom: 5px;";
+        userDiv.innerText = msg;
+        container.appendChild(userDiv);
 
-            input.value = "";
+        input.value = "";
+        container.scrollTop = container.scrollHeight;
+
+        // 2. Comprehensive Response Logic
+        setTimeout(() => {
+            const botDiv = document.createElement("div");
+            botDiv.style.cssText = "background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 8px; align-self: flex-start; max-width: 85%; margin-bottom: 5px; border-left: 3px solid #38bdf8;";
+            
+            const lower = msg.toLowerCase();
+
+            // Intro & Creator
+            if (lower.includes("who are you") || lower.includes("kaun ho") || lower.includes("naam") || lower.includes("name")) {
+                botDiv.innerText = "🤖 Main Nexis AI Assistant hoon! Mujhe Krishna Prajapati ne develop kiya hai.";
+            } 
+            else if (lower.includes("developer") || lower.includes("owner") || lower.includes("krishna")) {
+                botDiv.innerText = "👨‍💻 Nexis Infinity ke Founder aur Lead Developer Krishna Prajapati hain.";
+            }
+            // App Features & Download
+            else if (lower.includes("download") || lower.includes("apk") || lower.includes("install") || lower.includes("link")) {
+                botDiv.innerText = "📥 Aap is website ke Download Section me jaakar Latest Nexis APK bilkul free me download kar sakte hain!";
+            } 
+            else if (lower.includes("feature") || lower.includes("kya kar sakte ho") || lower.includes("work") || lower.includes("use")) {
+                botDiv.innerText = "⚡ Nexis AI ke Main Features:\n1. 100% Offline AI Execution\n2. Voice & Gesture Control\n3. Device Automation (No Root Required)\n4. Full Privacy & Data Security";
+            }
+            else if (lower.includes("price") || lower.includes("free") || lower.includes("cost") || lower.includes("paise")) {
+                botDiv.innerText = "🎉 Nexis Infinity bilkul FREE hai! Aap bina kisi charge ke ise use kar sakte hain.";
+            }
+            // General Greetings
+            else if (lower.includes("hi") || lower.includes("hello") || lower.includes("hey") || lower.includes("kaise ho")) {
+                botDiv.innerText = "👋 Hello! Main badiya hoon. Aap bataiye, main Nexis AI ke baare me kya help karoon?";
+            }
+            // Support & Contact
+            else if (lower.includes("help") || lower.includes("support") || lower.includes("contact") || lower.includes("email")) {
+                botDiv.innerText = "📧 Aap nexis.infinity@gmail.com par support team ko email kar sakte hain ya footer se Telegram join kar sakte hain!";
+            }
+            // Safety & Security
+            else if (lower.includes("safe") || lower.includes("secure") || lower.includes("privacy")) {
+                botDiv.innerText = "🔒 Nexis AI 100% Secure hai! Ye aapka data kisi server par nahi bhejta, sab kuch aapke phone me local execute hota hai.";
+            }
+            // Smart Fallback
+            else {
+                botDiv.innerText = "💡 Main Nexis Infinity AI Assistant hoon. Aap mujhse Download link, Features, Security, Developer, ya Support ke baare me pooch sakte hain!";
+            }
+
+            container.appendChild(botDiv);
             container.scrollTop = container.scrollHeight;
-
-            // Bot Response
-            setTimeout(() => {
-                const botDiv = document.createElement("div");
-                botDiv.style.cssText = "background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 8px; align-self: flex-start; max-width: 85%;";
-                
-                const lowerMsg = msg.toLowerCase();
-                if (lowerMsg.includes("download") || lowerMsg.includes("apk")) {
-                    botDiv.innerText = "You can download the latest APK directly from the download section on this page!";
-                } else if (lowerMsg.includes("feature") || lowerMsg.includes("what can you do")) {
-                    botDiv.innerText = "Nexis Infinity offers offline voice execution, phone automation, and privacy-first edge intelligence!";
-                } else {
-                    botDiv.innerText = "Thanks for asking! Nexis AI is engineered for autonomous phone automation and zero-latency voice interaction.";
-                }
-
-                container.appendChild(botDiv);
-                container.scrollTop = container.scrollHeight;
-            }, 600);
-        }
-    </script>
+        }, 500);
+    }
+</script>
     <script>
     window.addEventListener('load', () => {
         if ("Notification" in window && Notification.permission === "default") {
