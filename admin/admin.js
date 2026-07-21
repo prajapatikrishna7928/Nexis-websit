@@ -390,3 +390,52 @@ window.saveAPKConfig = async function() {
         console.error("Save Error:", e);
     }
 };
+// ==========================================
+// 🌐 MODULE 2: WEBSITE CMS LOGIC
+// ==========================================
+
+// 📥 1. Load Current CMS Data from Firestore
+async function loadCMSContent() {
+    try {
+        const docRef = doc(db, "settings", "cms_content");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const titleElem = document.getElementById("cms-hero-title");
+            const subElem = document.getElementById("cms-hero-sub");
+            const bannerElem = document.getElementById("cms-banner-text");
+
+            if (titleElem) titleElem.value = data.heroTitle || "";
+            if (subElem) subElem.value = data.heroSubtitle || "";
+            if (bannerElem) bannerElem.value = data.bannerText || "";
+        }
+    } catch (e) {
+        console.error("CMS Fetch Error:", e);
+    }
+}
+
+// 💾 2. Save New CMS Data to Firestore
+window.saveCMSContent = async function() {
+    const heroTitle = document.getElementById("cms-hero-title").value.trim();
+    const heroSub = document.getElementById("cms-hero-sub").value.trim();
+    const bannerText = document.getElementById("cms-banner-text").value.trim();
+
+    try {
+        await setDoc(doc(db, "settings", "cms_content"), {
+            heroTitle: heroTitle,
+            heroSubtitle: heroSub,
+            bannerText: bannerText,
+            updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        alert("🎉 Website Content Updated Successfully!");
+        if (typeof logAction === "function") {
+            logAction(`CMS UPDATE: Hero content and banner updated.`);
+        }
+        loadCMSContent();
+    } catch (e) {
+        alert("❌ Failed to update website content.");
+        console.error("CMS Save Error:", e);
+    }
+};

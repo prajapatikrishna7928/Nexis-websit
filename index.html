@@ -103,8 +103,8 @@
         </div>
         <div class="container hero-content reveal">
             <div class="badge">✦ Next-Gen Autonomous Intelligence</div>
-            <h1>The Future of AI is <span class="gradient-text">Autonomous & Local</span></h1>
-            <p>Experience Nexis AI & Agent. Built with hybrid on-device execution, voice recognition, and advanced phone automation. Intelligent, secure, and always ready.</p>
+            <h1 id="live-hero-title">The Future of AI is <span class="gradient-text">Autonomous & Local</span></h1>
+            <p id="live-hero-sub">Experience Nexis AI & Agent. Built with hybrid on-device execution, voice recognition, and advanced phone automation. Intelligent, secure, and always ready.</p>
             <div class="hero-btns">
                 <a href="#download" class="btn btn-primary">Download APK <span>↓</span></a>
                 <a href="#showcase" class="btn btn-secondary">Explore Features</a>
@@ -512,7 +512,7 @@
 </script>
 
 
-    <footer aria-label="Site Footer">
+        <footer aria-label="Site Footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
@@ -560,6 +560,31 @@
 
     <script src="assets/js/main.js"></script>
     <script type="module" src="firebase/feedback.js"></script>
+
+    <script type="module">
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { db } from "./firebase/firebase-config.js";
+
+        async function syncLiveCMS() {
+            try {
+                const docRef = doc(db, "settings", "cms_content");
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const titleEl = document.getElementById("live-hero-title");
+                    const subEl = document.getElementById("live-hero-sub");
+
+                    if (titleEl && data.heroTitle) titleEl.innerText = data.heroTitle;
+                    if (subEl && data.heroSubtitle) subEl.innerText = data.heroSubtitle;
+                }
+            } catch(e) {
+                console.log("Using default HTML content fallback.");
+            }
+        }
+        syncLiveCMS();
+    </script>
+
     <script>
     window.addEventListener('load', function() {
         const loader = document.getElementById('loader');
@@ -569,7 +594,7 @@
                 loader.style.display = 'none';
             }, 500);
         }
-    });
+    }); 
 
     // अगर इंटरनेट या किसी एरर से लोड होने में टाइम लगे, तो भी 2 सेकंड बाद जबरदस्ती हटा देगा
     setTimeout(function() {
